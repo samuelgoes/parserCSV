@@ -1,3 +1,5 @@
+package com.epiclabs.parserCSV;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -42,7 +44,7 @@ public class ParserCSV {
      * @return List where each row is an array with the information tokenized using as separator ","
      * @throws IOException If there is no file to read
      */
-    List<String []> readFile(String filePath) throws IOException{
+    private List<String []> readFile(String filePath) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader(filePath));
         List<String []> list;
 
@@ -69,7 +71,7 @@ public class ParserCSV {
      * Read each row of the file and transform it to the "clean" data
      * @return String builder with the information deciphered to save in a file
      */
-    StringBuilder transformFile(List<String []> file) {
+    private StringBuilder transformFile(List<String []> file) {
         Iterator<String []> it;
         StringBuilder sb;
 
