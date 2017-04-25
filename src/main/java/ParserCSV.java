@@ -8,6 +8,11 @@ import java.util.List;
  */
 public class ParserCSV {
 
+    /**
+     * main method.
+     * @param origin path where is the file with de information we want to parse
+     * @param csv path where we want write the new file with the information deciphered
+     */
     void parse(String origin, String csv) {
         List<String []> file;
         StringBuilder sb;
@@ -32,10 +37,10 @@ public class ParserCSV {
     }
 
     /**
-     *
-     * @param filePath
-     * @return
-     * @throws IOException
+     * Read file and store it in a list with arrays, to manage information easily
+     * @param filePath path where is the file ciphered
+     * @return List where each row is an array with the information tokenized using as separator ","
+     * @throws IOException If there is no file to read
      */
     List<String []> readFile(String filePath) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -61,8 +66,8 @@ public class ParserCSV {
 
 
     /**
-     *
-     * @return
+     * Read each row of the file and transform it to the "clean" data
+     * @return String builder with the information deciphered to save in a file
      */
     StringBuilder transformFile(List<String []> file) {
         Iterator<String []> it;
@@ -80,6 +85,12 @@ public class ParserCSV {
     }
 
 
+    /**
+     * Read the information ciphered and deciphered using a simple mathematical algorithm
+     * @param system
+     * @param scoreHack
+     * @return
+     */
     private int getScore(String system, String scoreHack) {
         byte[] sco = scoreHack.getBytes();
         int score = 0;
@@ -94,6 +105,12 @@ public class ParserCSV {
     }
 
 
+    /**
+     * Write the information in a determined path
+     * @param sb data to write
+     * @param file path where we want to save the file
+     * @throws IOException If there is a problem to write the file (permissions, ...)
+     */
     private void writeFile(StringBuilder sb, String file) throws IOException{
         FileOutputStream out = new FileOutputStream(file);
         out.write(sb.toString().getBytes());
@@ -104,7 +121,7 @@ public class ParserCSV {
 
 
     /**
-     *
+     * MAIN
      * @param args
      */
     public static void main (String [] args) {
