@@ -8,12 +8,12 @@ import java.util.List;
  */
 public class ParserCSV {
 
-    void parser(String filePath) {
+    void parse(String origin, String csv) {
         List<String []> file;
         StringBuilder sb;
 
         try{
-            file = readFile(filePath);
+            file = readFile(origin);
         }catch(IOException ioe) {
             System.out.println("No se ha podido leer el fichero");
             return;
@@ -22,7 +22,7 @@ public class ParserCSV {
         sb = transformFile(file);
 
         try {
-            writeFile(sb);
+            writeFile(sb, csv);
         }catch(IOException ioe) {
             System.out.println("No se ha podido escribir el fichero");
             return;
@@ -94,8 +94,8 @@ public class ParserCSV {
     }
 
 
-    private void writeFile(StringBuilder sb) throws IOException{
-        FileOutputStream out = new FileOutputStream("the-file-name.csv");
+    private void writeFile(StringBuilder sb, String file) throws IOException{
+        FileOutputStream out = new FileOutputStream(file);
         out.write(sb.toString().getBytes());
         out.close();
     }
@@ -110,7 +110,10 @@ public class ParserCSV {
     public static void main (String [] args) {
         ParserCSV parser = new ParserCSV();
 
-        parser.parser(args[0]);
+        if(args.length == 2)
+            parser.parse(args[0], args[1]);
+        else
+            System.out.println("El número de parametros deben ser 2");
     }
 
 }
