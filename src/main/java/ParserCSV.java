@@ -21,12 +21,12 @@ public class ParserCSV {
 
         sb = transformFile(file);
 
-        //try {
-        //    //writeFile(sb);
-        //}catch(IOException ioe) {
-        //    System.out.println("No se ha podido escribir el fichero");
-        //    return;
-        //}
+        try {
+            writeFile(sb);
+        }catch(IOException ioe) {
+            System.out.println("No se ha podido escribir el fichero");
+            return;
+        }
 
         System.out.println("CONSEGUIDO");
     }
@@ -91,6 +91,13 @@ public class ParserCSV {
         System.out.println(score);
 
         return score;
+    }
+
+
+    private void writeFile(StringBuilder sb) throws IOException{
+        FileOutputStream out = new FileOutputStream("the-file-name.csv");
+        out.write(sb.toString().getBytes());
+        out.close();
     }
 
 
