@@ -1,7 +1,8 @@
-package com.epiclabs.parserCSV;
+package com.epiclabs.test;
 
-import java.io.*;
-import java.util.ArrayList;
+import com.epiclabs.io.FileUtils;
+
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,12 +16,15 @@ public class ParserCSV {
      * @param origin path where is the file with de information we want to parse
      * @param csv path where we want write the new file with the information deciphered
      */
-    void parse(String origin, String csv) {
+    public void parse(String origin, String csv) {
         List<String []> file;
         StringBuilder sb;
+        FileUtils utils;
+
+        utils = new FileUtils();
 
         try{
-            file = readFile(origin);
+            file = utils.readFile(origin);
         }catch(IOException ioe) {
             System.out.println("No se ha podido leer el fichero");
             return;
@@ -29,41 +33,13 @@ public class ParserCSV {
         sb = transformFile(file);
 
         try {
-            writeFile(sb, csv);
+            utils.writeFile(sb, csv);
         }catch(IOException ioe) {
             System.out.println("No se ha podido escribir el fichero");
             return;
         }
 
         System.out.println("CONSEGUIDO");
-    }
-
-    /**
-     * Read file and store it in a list with arrays, to manage information easily
-     * @param filePath path where is the file ciphered
-     * @return List where each row is an array with the information tokenized using as separator ","
-     * @throws IOException If there is no file to read
-     */
-    private List<String []> readFile(String filePath) throws IOException{
-        BufferedReader br = new BufferedReader(new FileReader(filePath));
-        List<String []> list;
-
-        list = null;
-
-        try {
-            String line = br.readLine();
-            list = new ArrayList<String []>();
-
-            while (line != null) {
-                String [] token = line.split(",");
-                list.add(token);
-                line = br.readLine();
-            }
-        } finally {
-            br.close();
-        }
-
-        return list;
     }
 
 
@@ -104,35 +80,6 @@ public class ParserCSV {
         System.out.println(score);
 
         return score;
-    }
-
-
-    /**
-     * Write the information in a determined path
-     * @param sb data to write
-     * @param file path where we want to save the file
-     * @throws IOException If there is a problem to write the file (permissions, ...)
-     */
-    private void writeFile(StringBuilder sb, String file) throws IOException{
-        FileOutputStream out = new FileOutputStream(file);
-        out.write(sb.toString().getBytes());
-        out.close();
-    }
-
-
-
-
-    /**
-     * MAIN
-     * @param args
-     */
-    public static void main (String [] args) {
-        ParserCSV parser = new ParserCSV();
-
-        if(args.length == 2)
-            parser.parse(args[0], args[1]);
-        else
-            System.out.println("El número de parametros deben ser 2");
     }
 
 }
