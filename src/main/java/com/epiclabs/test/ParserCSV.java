@@ -77,7 +77,7 @@ public class ParserCSV {
             score += system.indexOf(sco[sco.length - 1 - i]) * Math.pow(system.length(), i);
         }
 
-        System.out.println(score);
+        //System.out.println(score);
 
         return score;
     }
